@@ -31,7 +31,7 @@ jobs:
       - checkout
       - setup_remote_docker
       - docker/build:
-          name: SCTP Group 1 Docker Assignment
+          # name: SCTP Group 1 Docker Assignment
           image: khairula86/sctpgrp1dockerassignment
           tag: latest
           
