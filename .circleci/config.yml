@@ -34,6 +34,9 @@ jobs:
           # name: SCTP Group 1 Docker Assignment
           image: khairula86/sctpgrp1dockerassignment
           tag: latest
+      - docker/push:
+          image: khairula86/sctpgrp1dockerassignment
+          tag: latest
           
 workflows:
   version: 2
