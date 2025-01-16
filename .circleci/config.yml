@@ -3,7 +3,7 @@ version: 2.1
 # Importing orbs for Docker and Heroku
 orbs:
   docker: circleci/docker@2.1.1
-  heroku: circleci/heroku@3.0.1
+  heroku: circleci/heroku@2.0.0
 
 jobs:
   build:
