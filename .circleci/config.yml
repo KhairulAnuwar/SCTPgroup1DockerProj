@@ -82,8 +82,6 @@
 # #          requires:
 # #            - dockerize
 
-
-
 version: 2.1
 
 orbs:
@@ -142,29 +140,40 @@ workflows:
   version: 2
   ci_flow:
     jobs:
-      - build
-      - test
-    triggers:
-      - branch:
-          only:
-            - develop
+      - build:
+          filters:
+            branches:
+              only:
+                - develop
+      - test:
+          filters:
+            branches:
+              only:
+                - develop
 
   cicd_flow:
     jobs:
-      - build
-      - test
+      - build:
+          filters:
+            branches:
+              only:
+                - release
+      - test:
+          filters:
+            branches:
+              only:
+                - release
       - dockerize:
           requires:
             - test
+          filters:
+            branches:
+              only:
+                - release
       - deploy:
           requires:
             - dockerize
-    triggers:
-      - branch:
-          only:
-            - release
-
-
-
-
-
+          filters:
+            branches:
+              only:
+                - release
