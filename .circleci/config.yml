@@ -1,6 +1,92 @@
+# version: 2.1
+
+# # Importing orbs for Docker and Heroku
+# orbs:
+#   docker: circleci/docker@2.1.1
+#   heroku: circleci/heroku@2.0.0
+
+# jobs:
+#   build:
+#     docker:
+#      - image: cimg/openjdk:17.0
+#     steps:
+#       - checkout
+#       - setup_remote_docker
+#       - run:
+#           name: Build with Maven Wrapper
+#           command: ./mvnw clean package
+
+#   # test:
+#   #   docker:
+#   #     - image: cimg/openjdk:17.0
+#   #   steps:
+#   #     - checkout
+#   #     - run:
+#   #         name: Run Tests
+#   #         command: ./mvnw test
+
+# # Commented out other jobs for now to troubleshoot build and test
+# #  dockerize:
+# #    docker:
+# #      - image: circleci/openjdk:11-jdk  # Java-based image for Dockerization
+# #    steps:
+# #      - checkout
+# #      - setup_remote_docker
+# #      - docker/build:
+# #          # name: SCTP Group 1 Docker Assignment
+# #          image: khairula86/sctpgrp1dockerassignment
+# #          tag: latest
+# #      - docker/push:
+# #          image: khairula86/sctpgrp1dockerassignment
+# #          tag: latest
+
+# #  deploy:
+# #    docker:
+# #      - image: cimg/base:stable
+# #    steps:
+# #      - setup_remote_docker
+# #      - heroku/install
+# #      - checkout
+# #      - run:
+# #          name: Heroku Container Push
+# #          command: |
+# #            heroku container:login
+# #            heroku stack:set container -a sctpgrp1-dockerassignment
+# #            heroku container:push web -a sctpgrp1-dockerassignment
+# #            heroku container:release web -a sctpgrp1-dockerassignment
+
+# workflows:
+#   version: 2
+#   ci_flow:
+#     when:
+#       branches:
+#         only:
+#           - develop
+#     jobs:
+#       - build
+#       # - test
+
+# # Commented out cicd_flow for now
+# #  cicd_flow:
+# #    when:
+# #      branches:
+# #        only:
+# #          - release
+# #    jobs:
+# #      - build
+# #      - test
+# #      - dockerize:
+# #          requires:
+# #            - test
+# #      - deploy:
+# #          requires:
+# #            - dockerize
+
+
+
 version: 2.1
 
-# Importing orbs for Docker and Heroku
+# Importing orbs for Docker and Heroku (Heroku orb added if needed)
 orbs:
   docker: circleci/docker@2.1.1
   heroku: circleci/heroku@2.0.0
@@ -8,7 +94,7 @@ orbs:
 jobs:
   build:
     docker:
-     - image: cimg/openjdk:17.0
+      - image: circleci/openjdk:11-jdk
     steps:
       - checkout
       - setup_remote_docker
@@ -16,68 +102,59 @@ jobs:
           name: Build with Maven Wrapper
           command: ./mvnw clean package
 
-  # test:
-  #   docker:
-  #     - image: cimg/openjdk:17.0
-  #   steps:
-  #     - checkout
-  #     - run:
-  #         name: Run Tests
-  #         command: ./mvnw test
+  test:
+    docker:
+      - image: circleci/openjdk:11-jdk
+    steps:
+      - checkout
+      - run:
+          name: Run Tests
+          command: ./mvnw test
 
-# Commented out other jobs for now to troubleshoot build and test
-#  dockerize:
-#    docker:
-#      - image: circleci/openjdk:11-jdk  # Java-based image for Dockerization
-#    steps:
-#      - checkout
-#      - setup_remote_docker
-#      - docker/build:
-#          # name: SCTP Group 1 Docker Assignment
-#          image: khairula86/sctpgrp1dockerassignment
-#          tag: latest
-#      - docker/push:
-#          image: khairula86/sctpgrp1dockerassignment
-#          tag: latest
+  dockerize:
+    docker:
+      - image: circleci/openjdk:11-jdk
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Build Docker Image
+          command: |
+            docker build -t khairula86/sctpgrp1dockerassignment:latest .
+      - run:
+          name: Push Docker Image
+          command: |
+            echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+            docker push khairula86/sctpgrp1dockerassignment:latest
 
-#  deploy:
-#    docker:
-#      - image: cimg/base:stable
-#    steps:
-#      - setup_remote_docker
-#      - heroku/install
-#      - checkout
-#      - run:
-#          name: Heroku Container Push
-#          command: |
-#            heroku container:login
-#            heroku stack:set container -a sctpgrp1-dockerassignment
-#            heroku container:push web -a sctpgrp1-dockerassignment
-#            heroku container:release web -a sctpgrp1-dockerassignment
+  deploy:
+    docker:
+      - image: circleci/openjdk:11-jdk
+    steps:
+      - checkout
+      - heroku/deploy-via-git:
+          app-name: sctpgrp1-dockerassignment
+          remote: heroku
 
 workflows:
   version: 2
   ci_flow:
-    when:
-      branches:
-        only:
-          - develop
     jobs:
       - build
-      # - test
+      - test
 
-# Commented out cicd_flow for now
-#  cicd_flow:
-#    when:
-#      branches:
-#        only:
-#          - release
-#    jobs:
-#      - build
-#      - test
-#      - dockerize:
-#          requires:
-#            - test
-#      - deploy:
-#          requires:
-#            - dockerize
+  cicd_flow:
+    jobs:
+      - build
+      - test
+      - dockerize:
+          requires:
+            - test
+      - deploy:
+          requires:
+            - dockerize
+
+
+
+
+
