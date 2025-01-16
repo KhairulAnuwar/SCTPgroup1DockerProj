@@ -24,34 +24,37 @@ jobs:
       - run:
           name: Run Tests
           command: ./mvnw test
-  dockerize:
-    docker:
-      - image: circleci/openjdk:11-jdk  # Java-based image for Dockerization
-    steps:
-      - checkout
-      - setup_remote_docker
-      - docker/build:
-          # name: SCTP Group 1 Docker Assignment
-          image: khairula86/sctpgrp1dockerassignment
-          tag: latest
-      - docker/push:
-          image: khairula86/sctpgrp1dockerassignment
-          tag: latest
 
-  deploy:
-    docker:
-      - image: cimg/base:stable
-    steps:
-      - setup_remote_docker
-      - heroku/install
-      - checkout
-      - run:
-          name: Heroku Container Push
-          command: |
-            heroku container:login
-            heroku stack:set container -a sctpgrp1-dockerassignment
-            heroku container:push web -a sctpgrp1-dockerassignment
-            heroku container:release web -a sctpgrp1-dockerassignment
+# Commented out other jobs for now to troubleshoot build and test
+#  dockerize:
+#    docker:
+#      - image: circleci/openjdk:11-jdk  # Java-based image for Dockerization
+#    steps:
+#      - checkout
+#      - setup_remote_docker
+#      - docker/build:
+#          # name: SCTP Group 1 Docker Assignment
+#          image: khairula86/sctpgrp1dockerassignment
+#          tag: latest
+#      - docker/push:
+#          image: khairula86/sctpgrp1dockerassignment
+#          tag: latest
+
+#  deploy:
+#    docker:
+#      - image: cimg/base:stable
+#    steps:
+#      - setup_remote_docker
+#      - heroku/install
+#      - checkout
+#      - run:
+#          name: Heroku Container Push
+#          command: |
+#            heroku container:login
+#            heroku stack:set container -a sctpgrp1-dockerassignment
+#            heroku container:push web -a sctpgrp1-dockerassignment
+#            heroku container:release web -a sctpgrp1-dockerassignment
+
 workflows:
   version: 2
   ci_flow:
@@ -63,17 +66,18 @@ workflows:
       - build
       - test
 
-  cicd_flow:
-    when:
-      branches:
-        only:
-          - release
-    jobs:
-      - build
-      - test
-      - dockerize:
-          requires:
-            - test
-      - deploy:
-          requires:
-            - dockerize
+# Commented out cicd_flow for now
+#  cicd_flow:
+#    when:
+#      branches:
+#        only:
+#          - release
+#    jobs:
+#      - build
+#      - test
+#      - dockerize:
+#          requires:
+#            - test
+#      - deploy:
+#          requires:
+#            - dockerize
