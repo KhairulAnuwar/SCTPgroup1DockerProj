@@ -92,7 +92,8 @@ orbs:
 jobs:
   build:
     docker:
-      - image: circleci/openjdk:17.0
+       - image: openjdk:17-jdk-slim
+
     steps:
       - checkout
       - setup_remote_docker
@@ -102,7 +103,7 @@ jobs:
 
   test:
     docker:
-       - image: circleci/openjdk:17.0
+       - image: openjdk:17-jdk-slim
     steps:
       - checkout
       - run:
