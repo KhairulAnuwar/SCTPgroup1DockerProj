@@ -86,7 +86,6 @@
 
 version: 2.1
 
-# Importing orbs for Docker and Heroku (Heroku orb added if needed)
 orbs:
   docker: circleci/docker@2.1.1
   heroku: circleci/heroku@2.0.0
@@ -129,12 +128,15 @@ jobs:
 
   deploy:
     docker:
-      - image: circleci/openjdk:11-jdk
+      - image: cimg/base:stable
     steps:
       - checkout
-      - heroku/deploy-via-git:
-          app-name: sctpgrp1-dockerassignment
-          remote: heroku
+      - heroku/install
+      - run:
+          name: Deploy to Heroku
+          command: |
+            heroku git:remote -a sctpgrp1-dockerassignment
+            git push heroku main
 
 workflows:
   version: 2
@@ -142,6 +144,10 @@ workflows:
     jobs:
       - build
       - test
+    triggers:
+      - branch:
+          only:
+            - develop
 
   cicd_flow:
     jobs:
@@ -153,6 +159,10 @@ workflows:
       - deploy:
           requires:
             - dockerize
+    triggers:
+      - branch:
+          only:
+            - release
 
 
 
