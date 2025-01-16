@@ -16,14 +16,14 @@ jobs:
           name: Build with Maven Wrapper
           command: ./mvnw clean package
 
-  test:
-    docker:
-      - image: cimg/openjdk:17.0
-    steps:
-      - checkout
-      - run:
-          name: Run Tests
-          command: ./mvnw test
+  # test:
+  #   docker:
+  #     - image: cimg/openjdk:17.0
+  #   steps:
+  #     - checkout
+  #     - run:
+  #         name: Run Tests
+  #         command: ./mvnw test
 
 # Commented out other jobs for now to troubleshoot build and test
 #  dockerize:
@@ -64,7 +64,7 @@ workflows:
           - develop
     jobs:
       - build
-      - test
+      # - test
 
 # Commented out cicd_flow for now
 #  cicd_flow:
