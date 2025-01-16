@@ -573,3 +573,25 @@ Caused by: org.hibernate.HibernateException: Unable to determine Dialect without
 02:52:20.235 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
 02:52:20.238 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
 02:52:20.240 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+21:16:31.013 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [sg.edu.ntu.ftbsolutionscrm.FtbsolutionscrmApplicationTests]: FtbsolutionscrmApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+21:16:31.041 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration sg.edu.ntu.ftbsolutionscrm.FtbsolutionscrmApplication for test class sg.edu.ntu.ftbsolutionscrm.FtbsolutionscrmApplicationTests
+21:16:31.082 [main] INFO  o.s.b.d.r.RestartApplicationListener - Restart disabled due to context in which it is running
+21:16:31.136 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+21:16:31.143 [main] INFO  s.e.n.f.FtbsolutionscrmApplicationTests - Starting FtbsolutionscrmApplicationTests using Java 17.0.11 with PID 14537 (started by khairulanKhairuluwar in /Users/khairulanKhairuluwar/Desktop/Assignment4/SCTPgroup1DockerProj)
+21:16:31.143 [main] INFO  s.e.n.f.FtbsolutionscrmApplicationTests - No active profile set, falling back to 1 default profile: "default"
+21:16:31.326 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+21:16:31.346 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 17 ms. Found 7 JPA repository interfaces.
+21:16:31.474 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+21:16:31.487 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.3.1.Final
+21:16:31.495 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+21:16:31.561 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+21:16:31.568 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+21:16:31.608 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@41167ded
+21:16:31.609 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+21:16:31.903 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+21:16:31.956 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+21:16:32.257 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+21:16:32.371 [main] INFO  s.e.n.f.FtbsolutionscrmApplicationTests - Started FtbsolutionscrmApplicationTests in 1.292 seconds (process running for 1.639)
+21:16:32.778 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+21:16:32.779 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+21:16:32.781 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
